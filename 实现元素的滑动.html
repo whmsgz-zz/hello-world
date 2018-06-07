@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    div {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(to left, red, yellow);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div></div>
+</body>
+
+</html>
+<script>
+  // 移动端touch事件
+  // touchstart:开始触摸时触发：一次触摸只能触发一次
+  // touchmove:触摸过程中持续触发
+  // touchend:触摸结束-手指离开屏幕
+  // touchcancel:触摸意外中断
+
+  // 获取操作对象
+  var div = document.querySelector("div");
+  // 移动端的事件一般通过addEventListener
+  // addEventListener(事件名称，事件回调)
+  var startX = 0,startY = 0;
+  div.addEventListener("touchstart",function(e){
+    // 获取触摸开始时的坐标值
+    startX = e.targetTouches[0].clientX;
+    startY = e.targetTouches[0].clientY;
+  });
+
+  // 添加touchmove:在触摸过程中持续触发，只要手指没有松开就会持续的触发,前提是有移动
+  div.addEventListener("touchmove",function (e) {
+    // 需要再次持续的获取滑动中的坐标值，计算他们的差异，根据差异实现元素的偏移
+    var moveX = e.targetTouches[0].clientX;
+    var moveY = e.targetTouches[0].clientY;
+    // 计算差异
+    var distanceX = moveX - startX;
+    var distanceY = moveY - startY;
+    // 实现偏移
+    div.style.left = distanceX + "px";
+    div.style.top = distanceY + "px";
+  });
+
+  // 添加touchend事件
+  div.addEventListener("touchend",function () {
+    
+  });
+</script>
